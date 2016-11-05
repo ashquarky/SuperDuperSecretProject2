@@ -1,3 +1,7 @@
 *.rpx
 *.elf
 build
+
+#My test environment
+content
+run-decaf
