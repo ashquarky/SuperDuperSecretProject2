@@ -17,5 +17,6 @@ bool CPUInit();
 bool CPUDeInit();
 unsigned char CPUReadMemory(unsigned int address);
 void CPUWriteMemory(unsigned int address, unsigned char val);
+void CPUWriteMemoryRaw(unsigned int address, unsigned char val);
 
 #endif //_CPU_H_

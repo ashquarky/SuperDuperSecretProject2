@@ -7,13 +7,19 @@
 #include <coreinit/foreground.h>
 #include <proc_ui/procui.h>
 
+#include <stdio.h>
+#include <stdlib.h>
+
 #include "emu/EmulationManager.h"
+#include "emu/CPU/cpu.h"
+#include <lame6502/lame6502.h>
 
 //Main application loop, called each frame.
 //Retrun true to quit app.
 //Generally, "false" = all good, "true" = error.
 bool MainLoop() {
-	return false;
+	EmulationManagerLoadROM("/vol/content/official_only.nes");
+	return true;
 }
 
 bool AppIsInit = false;
@@ -57,7 +63,11 @@ void RunApplication() {
 
 			if(status == PROCUI_STATUS_IN_FOREGROUND) { //Run application
 				if (!AppIsInit) InitApp();
-				if (MainLoop()) break;
+				if (MainLoop()) {
+					DeInitApp();
+					ProcUIShutdown();
+					break;
+				}
 				//TODO: GX2WaitForVsync();
 			} else if(status == PROCUI_STATUS_RELEASE_FOREGROUND) { //Clean up foreground stuff
 				if (AppIsInit) DeInitApp();

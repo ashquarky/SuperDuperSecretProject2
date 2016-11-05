@@ -16,6 +16,7 @@ inline void CPUExecute(int cycles) {
 bool CPUInit() {
 	write_memory_real = &CPUWriteMemory; //lame6502 variable
 	allocate_memory(CPU_MEMORY_SIZE); //lame6502 function TODO get rid of this
+	program_counter = 0x400;
 	if (!memory) {
 		return true;
 	}
@@ -32,7 +33,56 @@ inline unsigned char CPUReadMemory(unsigned int address) {
 	return memory_read(address); //lame6502 function
 }
 
+inline void CPUWriteMemoryRaw(unsigned int address, unsigned char val) {
+	memory[address] = val;
+}
+
+//TODO: bitshifting on this section
 void CPUWriteMemory(unsigned int address, unsigned char val) {
-	//TODO: paging and all those other NESy things
-	memory[address] = val; //lame6502 variable
+	if (address < 0x0800) {
+		memory[address] = val; //"real" memory
+		memory[address + 0x0800] = val; //0800 mirror
+		memory[address + 0x0800 + 0x0800] = val; //1000 mirror
+		memory[address + 0x0800 + 0x0800 + 0x0800] = val; //1800 mirror
+	} else {
+		if (address < 0x1000) {
+			memory[address] = val; //0800 mirror
+			memory[address + 0x0800] = val; //1000 mirror
+			memory[address + 0x0800 + 0x0800] = val; //1800 mirror
+			memory[address - 0x0800] = val; //"real" memory
+		} else {
+			if (address < 0x1800) {
+				memory[address] = val; //1000 mirror
+				memory[address + 0x0800] = val; //1800 mirror
+				memory[address - 0x0800] = val; //0800 mirror
+				memory[address - 0x0800 - 0x0800] = val; //"real" memory
+			} else {
+				if (address < 0x2000) {
+					memory[address] = val; //1800 mirror
+					memory[address - 0x0800] = val; //1000 mirror
+					memory[address - 0x0800 - 0x0800] = val; //0800 mirror
+					memory[address + 0x0800 + 0x0800 + 0x0800] = val; //"real" memory
+				} else {
+					if (address < 0x2008) {
+						//PPURegisterWrite()
+					} else {
+						if (address < 0x4000) {
+							//NO
+						} else {
+							if (address < 0x4018) {
+								//APURegiserWrite
+							} else {
+								if (address < 0x4020) {
+									//CPU Test Mode stuff
+								} else {
+									//MAPPERS
+									memory[address] = val;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 }
