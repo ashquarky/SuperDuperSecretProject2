@@ -4,6 +4,7 @@
 
 //cpu.c - Compatibility layer for lame6502 to keep everything neat
 
+#include <stdbool.h>
 #include <lame6502/lame6502.h>
 #include "cpu.h"
 

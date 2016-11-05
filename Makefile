@@ -15,7 +15,7 @@ include $(WUT_ROOT)/rules/rpl.mk
 
 TARGET   := $(notdir $(CURDIR))
 BUILD    := build
-SOURCE   := src/ src/emu/CPU ext/lame6502/
+SOURCE   := src/ src/emu src/emu/CPU ext/lame6502/
 INCLUDE  := src/ ext/
 DATA     := data
 LIBS     := -lgcc -lcrt -lcoreinit -lproc_ui -lsysapp

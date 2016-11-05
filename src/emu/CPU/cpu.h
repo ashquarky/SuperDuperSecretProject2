@@ -4,15 +4,17 @@
 
 //cpu.h - Compatibility layer for lame6502 to keep everything neat
 
+#include <stdbool.h>
+
 #ifndef _CPU_H_
 #define _CPU_H_
 
 #define CPU_MEMORY_SIZE 0xFFFF
 #define CPU_CYCLES_PER_FRAME 100 //TODO
 
-inline void CPUExecute(int cycles);
+void CPUExecute(int cycles);
 bool CPUInit();
-inline unsigned char CPUReadMemory(unsigned int address);
+unsigned char CPUReadMemory(unsigned int address);
 void CPUWriteMemory(unsigned int address, unsigned char val);
 
 #endif //_CPU_H_

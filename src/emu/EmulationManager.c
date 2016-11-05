@@ -2,6 +2,9 @@
 	https://github.com/QuarkTheAwesome/SuperDuperSecretProject2
 	I'd appreciate it if you didn't post this on GBATemp or anything until I think up a name */
 
+//EmulationManager.c - Manages the NES emulator core
+
+#include <stdbool.h>
 #include "CPU/cpu.h"
 
 bool initialized = false;
