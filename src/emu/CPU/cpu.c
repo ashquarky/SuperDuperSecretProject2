@@ -5,6 +5,7 @@
 //cpu.c - Compatibility layer for lame6502 to keep everything neat
 
 #include <stdbool.h>
+#include <stdlib.h>
 #include <lame6502/lame6502.h>
 #include "cpu.h"
 
@@ -14,10 +15,16 @@ inline void CPUExecute(int cycles) {
 
 bool CPUInit() {
 	write_memory_real = &CPUWriteMemory; //lame6502 variable
-	allocate_memory(CPU_MEMORY_SIZE); //lame6502 function
+	allocate_memory(CPU_MEMORY_SIZE); //lame6502 function TODO get rid of this
 	if (!memory) {
 		return true;
 	}
+	return false;
+}
+
+bool CPUDeInit() {
+	free(memory);
+	//Looks like we just have to take this one on trust.
 	return false;
 }
 

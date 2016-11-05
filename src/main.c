@@ -11,16 +11,39 @@
 
 //Main application loop, called each frame.
 //Retrun true to quit app.
+//Generally, "false" = all good, "true" = error.
 bool MainLoop() {
 	return false;
 }
 
+bool AppIsInit = false;
 bool InitApp() {
+	if (AppIsInit) return false;
+	bool error = false;
+	error |= EmulationManagerInit();
 
+	if (error) {
+		AppIsInit = false;
+		//OSFatal is perfectly acceptable in this situation
+		OSFatal("Could not initialize app!");
+		return true;
+	}
+	AppIsInit = true;
+	return false;
 }
 
 bool DeInitApp() {
-	
+	if (!AppIsInit) return false;
+	bool error = false;
+	error |= EmulationManagerDeInit();
+
+	if (error) {
+		AppIsInit = true;
+		OSFatal("Could not deinitialize app!");
+		return true;
+	}
+	AppIsInit = false;
+	return false;
 }
 
 //Main ProcUI loop, handles many cool things
@@ -33,11 +56,14 @@ void RunApplication() {
 			ProcUIStatus status = ProcUIProcessMessages(true);
 
 			if(status == PROCUI_STATUS_IN_FOREGROUND) { //Run application
+				if (!AppIsInit) InitApp();
 				if (MainLoop()) break;
 				//TODO: GX2WaitForVsync();
 			} else if(status == PROCUI_STATUS_RELEASE_FOREGROUND) { //Clean up foreground stuff
+				if (AppIsInit) DeInitApp();
 				ProcUIDrawDoneRelease();
 			} else if(status == PROCUI_STATUS_EXITING) { //Get ready to exit
+				if (AppIsInit) DeInitApp();
 				ProcUIShutdown();
 				break;
 			}

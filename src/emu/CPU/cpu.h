@@ -14,6 +14,7 @@
 
 void CPUExecute(int cycles);
 bool CPUInit();
+bool CPUDeInit();
 unsigned char CPUReadMemory(unsigned int address);
 void CPUWriteMemory(unsigned int address, unsigned char val);
 

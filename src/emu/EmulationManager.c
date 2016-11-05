@@ -25,6 +25,19 @@ bool EmulationManagerInit() {
 	return false;
 }
 
+bool EmulationManagerDeInit() {
+	if (!EmulationManagerIsInit()) return false;
+	bool error = false;
+	error |= CPUDeInit();
+
+	if (error) {
+		initialized = true;
+		return true;
+	}
+	initialized = false;
+	return false;
+}
+
 void EmulationManagerRunFrame() {
 	CPUExecute(CPU_CYCLES_PER_FRAME);
 }

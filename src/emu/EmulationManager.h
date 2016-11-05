@@ -11,6 +11,7 @@
 
 bool EmulationManagerInit();
 bool EmulationManagerIsInit();
+bool EmulationManagerDeInit();
 void EmulationManagerRunFrame();
 
 #endif //_EMULATION_MANAGER_H_
