@@ -1,0 +1,3 @@
+[submodule "ext/lame6502"]
+	path = ext/lame6502
+	url = https://github.com/QuarkTheAwesome/lame6502.git
