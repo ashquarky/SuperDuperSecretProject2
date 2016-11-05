@@ -7,6 +7,8 @@
 #include <coreinit/foreground.h>
 #include <proc_ui/procui.h>
 
+#include "emu/CPU/cpu.h"
+
 //Main application loop, called each frame.
 //Retrun true to quit app.
 bool MainLoop() {
