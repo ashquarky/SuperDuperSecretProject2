@@ -11,7 +11,7 @@
 #define CPU_CYCLES_PER_FRAME 100 //TODO
 
 inline void CPUExecute(int cycles);
-void CPUInit();
+bool CPUInit();
 inline unsigned char CPUReadMemory(unsigned int address);
 void CPUWriteMemory(unsigned int address, unsigned char val);
 

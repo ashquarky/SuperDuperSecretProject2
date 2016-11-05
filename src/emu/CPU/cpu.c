@@ -11,9 +11,13 @@ inline void CPUExecute(int cycles) {
 	CPU_execute(cycles); //lame6502 function
 }
 
-void CPUInit() {
+bool CPUInit() {
 	write_memory_real = &CPUWriteMemory; //lame6502 variable
 	allocate_memory(CPU_MEMORY_SIZE); //lame6502 function
+	if (!memory) {
+		return true;
+	}
+	return false;
 }
 
 inline unsigned char CPUReadMemory(unsigned int address) {

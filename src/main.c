@@ -7,12 +7,20 @@
 #include <coreinit/foreground.h>
 #include <proc_ui/procui.h>
 
-#include "emu/CPU/cpu.h"
+#include "emu/EmulationManager.h"
 
 //Main application loop, called each frame.
 //Retrun true to quit app.
 bool MainLoop() {
 	return false;
+}
+
+bool InitApp() {
+
+}
+
+bool DeInitApp() {
+	
 }
 
 //Main ProcUI loop, handles many cool things
