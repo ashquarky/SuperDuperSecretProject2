@@ -9,7 +9,7 @@
 #ifndef _EMULATION_MANAGER_H_
 #define _EMULATION_MANAGER_H_
 
-bool EmulationManagerLoadROM(const char* filename);
+bool EmulationManagerLoadiNES(const char* filename);
 bool EmulationManagerInit();
 bool EmulationManagerIsInit();
 bool EmulationManagerDeInit();

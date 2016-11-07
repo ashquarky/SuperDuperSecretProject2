@@ -17,9 +17,15 @@
 //Main application loop, called each frame.
 //Retrun true to quit app.
 //Generally, "false" = all good, "true" = error.
+bool a = false;
 bool MainLoop() {
-	EmulationManagerLoadROM("/vol/content/official_only.nes");
-	return true;
+	if (!a) EmulationManagerLoadiNES("/vol/content/official_only.nes");
+	a = true;
+	EmulationManagerRunFrame();
+	if (CPUReadMemory(0x6004) != 0x00) {
+		OSReport(memory + 0x6004);
+	}
+	return false;
 }
 
 bool AppIsInit = false;

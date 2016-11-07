@@ -46,7 +46,8 @@ void EmulationManagerRunFrame() {
 	CPUExecute(CPU_CYCLES_PER_FRAME);
 }
 
-bool EmulationManagerLoadROM(const char* filename) {
+//TODO: clean up, maybe make ROMManager?
+bool EmulationManagerLoadiNES(const char* filename) {
 	FILE* rom = fopen(filename, "r");
 	if (!rom) {
 		return true;
